@@ -1,3 +1,6 @@
 pandas
 plotly
 sklearn
+statsmodel
+scipy
+matplotlib

@@ -57,7 +57,7 @@ fig.show()
 # Clustering
 # DBScan
 
-dfPenguins = pd.read_csv("penguins.csv")
+dfPenguins = pd.read_csv("media/penguins.csv")
 X = dfPenguins[dfPenguins.describe().columns].dropna().values
 
 X = StandardScaler().fit_transform(X)
@@ -74,7 +74,7 @@ n_noise_ = list(labels).count(-1)
 
 #Clustering
 #PREPRO
-data = pd.read_csv("penguins.csv")
+data = pd.read_csv("media/penguins.csv")
 data[data['sex']=='.']
 data.loc[336,'sex'] = 'FEMALE'
 
