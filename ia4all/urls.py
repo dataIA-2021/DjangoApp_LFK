@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from authentification.views import inscription, connexion, deconnexion, index, suppression, regression, home, clustering, classification
+from authentification.views import inscription, connexion, deconnexion, index, suppression, regression, home, clustering, classification, home, classification_results
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -30,4 +30,5 @@ urlpatterns = [
     path("regression/", regression, name="regression"),
     path("clustering/", clustering, name="clustering"),
     path("classification/", classification, name="classification"),
+    path("classification_results/", classification_results, name="classification_results"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

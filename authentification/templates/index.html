@@ -50,6 +50,12 @@
     Vous êtes connecté
 </h1>
 
+<form method="POST", enctype="multipart/form-data">
+  {% csrf_token %}
+  <input type="file" name="file">
+  <input type="submit">
+</form>
+<br/>
 
 <button data-toggle="collapse" data-target="#demo" class="btn btn-primary">Afficher/cacher les graphiques</button>
 <div id="demo" class="collapse">

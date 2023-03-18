@@ -45,11 +45,34 @@
 
 <div class="container-fluid p-5 bg-primary text-white text-center">
   <h1>Classification</h1>
+  <li>scatter, heatmap, barplot, piechart / logistic, arbre, knn</li>
 </div>
 
-<form action="" method="post" novalidate>
-  {% csrf_token %}
-  {{ form }}
-  <input type="submit" value="Submit">
-  </form>
-<br/>
+<button data-toggle="collapse" data-target="#demo" class="btn btn-primary">Afficher/cacher les graphiques</button>
+<div id="demo" class="collapse">
+  <div class="row">
+    <div class="col-sm-6">
+      {% autoescape off %}
+        {{ graphique }}
+      {% endautoescape %}
+    </div>
+
+    <div class="col-sm-6">
+      {% autoescape off %}
+        {{ graph2 }}
+      {% endautoescape %}
+    </div>
+
+    <div class="col-sm-6">
+      {% autoescape off %}
+        {{ graph3 }}
+      {% endautoescape %}
+    </div>
+
+    <div class="col-sm-6">
+      {% autoescape off %}
+        {{ graph4 }}
+      {% endautoescape %}
+    </div>
+  </div>
+</div>
