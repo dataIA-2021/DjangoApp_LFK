@@ -8,5 +8,3 @@ class Utilisateur(AbstractUser):
 class FilesUpload(models.Model):
     file = models.FileField()
 
-class Label(forms.Form):
-   label = forms.CharField(max_length=1000)

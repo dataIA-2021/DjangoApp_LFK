@@ -1,9 +1,11 @@
 from .models import FilesUpload
 from django.shortcuts import render, redirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
-from authentification.models import Utilisateur, Label
+from authentification.models import Utilisateur
+from .forms import LabelForm
 from plotly.offline import plot
 import plotly.graph_objs as go
 from sklearn.datasets import make_moons
@@ -151,13 +153,23 @@ def clustering(request):
 
 
 def classification(request):
-    #File Upload
-    form = Label()
-    
+    # form = Label()
     if request.method == "POST":
-        return render(request, 'classification_results.html', {'form': form})
-        # return redirect('classification_results')
-    
+        form = LabelForm(request.POST)
+        if form.is_valid():
+            # print("ici")
+            # print(form.cleaned_data['label'])
+            value = form.cleaned_data['label']
+            global val
+            def val():
+                return value
+            
+            # if form.is_valid():
+            #     form.save()
+            # return render(request, 'classification_results.html', {'form': form})
+            return redirect("classification_results")
+    else:
+        form = LabelForm()
     return render(request, 'classification.html', {'form': form})
 
 
@@ -166,7 +178,7 @@ def classification_results(request):
     data = fichier()
 
     #Get Label
-    label = form
+    label = val()
     #Train Models
     models = classification_training(data, label)
         

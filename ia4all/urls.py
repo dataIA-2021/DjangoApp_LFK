@@ -20,12 +20,12 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path('', home),
+    # path('', home),
     path("admin/", admin.site.urls),
     path("inscription/", inscription, name="inscription"),
     path("connexion/", connexion, name="connexion"),
     path("deconnexion/", deconnexion, name="deconnexion"),
-    path("index/", index, name="index"),
+    path("", index, name="index"),
     path("suppression/<int:id>", suppression, name="suppression"),
     path("regression/", regression, name="regression"),
     path("clustering/", clustering, name="clustering"),
