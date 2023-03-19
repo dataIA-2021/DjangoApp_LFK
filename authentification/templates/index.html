@@ -48,6 +48,8 @@
 
 <h1>Bienvenue {{ request.user.username }} !<br/>
     Vous êtes connecté
+    <br>
+    Choisi maintenant le fichier (.csv ou .xls) que tu veut uploader
 </h1>
 
 <form method="POST", enctype="multipart/form-data">
@@ -57,7 +59,7 @@
 </form>
 <br/>
 
-<button data-toggle="collapse" data-target="#demo" class="btn btn-primary">Afficher/cacher les graphiques</button>
+<!-- <button data-toggle="collapse" data-target="#demo" class="btn btn-primary">Afficher/cacher les graphiques</button>
 <div id="demo" class="collapse">
   <div class="row">
     <div class="col-sm-6">
@@ -83,7 +85,7 @@
         {{ graph4 }}
       {% endautoescape %}
     </div>
-  </div>
+  </div> -->
 
 </div>
 <div class="modal fade" id="myModal" role="dialog">

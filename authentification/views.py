@@ -23,7 +23,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, f1_score
+
+import plotly.express as px
 
 
 def nettoyage(type=['csv', 'h5']):
@@ -64,9 +66,11 @@ def classification_training(data, label):
     models  = [DecisionTreeClassifier(), RandomForestClassifier(), SVC()]
     trained_models = []
     conf_matrixs = []
+    f1_scores = []
     
     X = preprocessing(data.loc[:, data.columns != label])
     y = data[label]
+    labels = pd.unique(y)
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, stratify = y)
     
@@ -75,10 +79,11 @@ def classification_training(data, label):
         trained_models.append(model)
             
         y_pred = model.predict(X_test)
+        f1_scores.append(f1_score(y_test, y_pred, labels = labels, average = 'weighted'))
         conf_matrix = confusion_matrix(y_test, y_pred)
         conf_matrixs.append(conf_matrix)
 
-    return(trained_models, conf_matrixs)
+    return(trained_models, conf_matrixs, labels, f1_scores)
 
 def home(request):
     return render(request, "index.html")
@@ -153,7 +158,8 @@ def clustering(request):
 
 
 def classification(request):
-    # form = Label()
+    # data = fichier()
+    # context={"features": data.columns.to_list() }
     if request.method == "POST":
         form = LabelForm(request.POST)
         if form.is_valid():
@@ -173,6 +179,7 @@ def classification(request):
     return render(request, 'classification.html', {'form': form})
 
 
+
 def classification_results(request):
     
     data = fichier()
@@ -181,6 +188,27 @@ def classification_results(request):
     label = val()
     #Train Models
     models = classification_training(data, label)
-        
-    return render(request, "classification_results.html")
+
+    values = models[2]
+
+    fig1 = px.imshow(models[1][0], labels = dict(x="DecisionTreeClassifier"), x = values, y = values, text_auto=True)
+    graphique = plot(fig1, output_type='div')
+
+    fig2 = px.imshow(models[1][1], labels = dict(x="RandomForestClassifier"), x = values, y = values, text_auto=True)
+    graph2 = plot(fig2, output_type='div')
+
+    fig3 = px.imshow(models[1][2], labels = dict(x="SVC"), x = values, y = values, text_auto=True)
+    graph3 = plot(fig3, output_type='div')
+
+    fig4 = px.bar(models[3])
+    graph4 = plot(fig4, output_type='div')
+
+    context = {
+        "graphique": graphique,
+        "graph2": graph2,
+        "graph3": graph3,
+        "graph4": graph4
+        }
+
+    return render(request, "classification_results.html", context)
 
